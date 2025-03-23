@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
 import 'package:tracking_app/presentation/routes/router.dart';
@@ -17,12 +18,16 @@ class MyApp extends StatelessWidget {
     final authRepository = AuthRepository();
     return BlocProvider(
       create: (context) => AuthBloc(authRepository),
-      child: Builder(
-        builder:
-            (context) => MaterialApp.router(
-              debugShowCheckedModeBanner: false,
-              routerConfig: getRouter(context),
-            ),
+      child: ScreenUtilInit(
+        designSize: Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        builder: (context, child) {
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            routerConfig: getRouter(context),
+          );
+        },
       ),
     );
   }

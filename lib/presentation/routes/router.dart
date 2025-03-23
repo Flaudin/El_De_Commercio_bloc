@@ -36,7 +36,7 @@ GoRouter getRouter(BuildContext context) {
     },
     routes: [
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
-      GoRoute(path: 'home', builder: (context, state) => HomeScreen()),
+      GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
     ],
   );
 }
