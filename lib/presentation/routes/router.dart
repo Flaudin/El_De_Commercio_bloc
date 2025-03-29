@@ -5,6 +5,8 @@ import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
 import 'package:tracking_app/presentation/screens/auth/pages/login_screen.dart';
 import 'package:tracking_app/presentation/screens/home/home_screen.dart';
+import 'package:tracking_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:tracking_app/utils/preference_manager.dart';
 
 class AuthGuard extends ChangeNotifier {
   final BuildContext context;
@@ -21,13 +23,34 @@ class AuthGuard extends ChangeNotifier {
 
 GoRouter getRouter(BuildContext context) {
   final authGuard = AuthGuard(context);
+  final prefsManager = PreferencesManager();
 
   return GoRouter(
-    initialLocation: '/login',
+    initialLocation: '/onboard',
     refreshListenable: authGuard,
-    redirect: (context, state) {
+    redirect: (context, state) async {
       final isAuthenticated = authGuard.isAuthenticated;
       final isLoggingIn = state.matchedLocation == '/login';
+      final isOnboarding = state.matchedLocation == '/onboard';
+
+      final hasCompletedOnboarding =
+          await prefsManager.hasCompletedOnboarding();
+
+      // First check: If user hasn't completed onboarding,
+      // they should stay on onboarding screen regardless of other conditions
+      if (!hasCompletedOnboarding) {
+        return isOnboarding ? null : '/onboard';
+      }
+
+      // Now handle authenticated/unauthenticated states for users who completed onboarding
+      if (!isAuthenticated) {
+        return isLoggingIn ? null : '/login';
+      }
+
+      // User is authenticated and has completed onboarding
+      if (isLoggingIn || isOnboarding) {
+        return '/home'; // Redirect to home if they try to go back to login or onboarding
+      }
 
       if (!isAuthenticated && !isLoggingIn) return '/login';
       if (isAuthenticated && isLoggingIn) return '/home';
@@ -35,6 +58,7 @@ GoRouter getRouter(BuildContext context) {
       return null;
     },
     routes: [
+      GoRoute(path: '/onboard', builder: (context, state) => Onboarding()),
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
       GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
     ],
