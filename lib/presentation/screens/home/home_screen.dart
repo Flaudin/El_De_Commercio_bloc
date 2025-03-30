@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:tracking_app/presentation/screens/home/components/home_content.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -14,21 +17,42 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
-        body: Container(),
-        bottomNavigationBar: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          backgroundColor: kPrimaryLightColor,
-          selectedItemColor: kTextColorPrimary,
-          items: [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-            BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.notifications),
-              label: 'Notifications',
+        extendBodyBehindAppBar: false,
+        appBar: PreferredSize(
+          preferredSize: Size.fromHeight(kToolbarHeight),
+          child: AppBar(
+            elevation: 4.0, // Add elevation to make AppBar more stable
+            scrolledUnderElevation:
+                8.0, // Ensure elevation when content scrolls under
+            shadowColor: Colors.black45, // Add shadow for better distinction
+            title: Text(
+              'Explore',
+              style: GoogleFonts.poppins(
+                fontSize: lg,
+                color: kTextColorPrimary,
+              ),
             ),
-            BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
-          ],
+            actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
+            backgroundColor: kPrimaryColor,
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.search_outlined,
+                  color: kTextColorPrimary,
+                ),
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(
+                  Icons.favorite_outline,
+                  color: kTextColorPrimary,
+                ),
+              ),
+            ],
+          ),
         ),
+        body: HomeContent(),
       ),
     );
   }

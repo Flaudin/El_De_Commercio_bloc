@@ -3,9 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
+import 'package:tracking_app/presentation/screens/account/account_screen.dart';
 import 'package:tracking_app/presentation/screens/auth/pages/login_screen.dart';
+import 'package:tracking_app/presentation/screens/cart/cart_screen.dart';
+import 'package:tracking_app/presentation/screens/category/category_screen.dart';
 import 'package:tracking_app/presentation/screens/home/home_screen.dart';
 import 'package:tracking_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:tracking_app/presentation/screens/shellscreen/shell_screen.dart';
 import 'package:tracking_app/utils/preference_manager.dart';
 
 class AuthGuard extends ChangeNotifier {
@@ -60,7 +64,21 @@ GoRouter getRouter(BuildContext context) {
     routes: [
       GoRoute(path: '/onboard', builder: (context, state) => Onboarding()),
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
-      GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+      ShellRoute(
+        routes: [
+          GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
+          GoRoute(
+            path: '/account',
+            builder: (context, state) => AccountScreen(),
+          ),
+          GoRoute(path: '/cart', builder: (context, state) => CartScreen()),
+          GoRoute(
+            path: '/category',
+            builder: (context, state) => CategoryScreen(),
+          ),
+        ],
+        builder: (context, state, child) => ShellScreen(child: child),
+      ),
     ],
   );
 }
