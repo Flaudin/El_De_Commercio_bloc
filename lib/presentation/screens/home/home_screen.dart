@@ -23,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
           child: AppBar(
             elevation: 4.0, // Add elevation to make AppBar more stable
             scrolledUnderElevation:
-                8.0, // Ensure elevation when content scrolls under
+                0, // Ensure elevation when content scrolls under
             shadowColor: Colors.black45, // Add shadow for better distinction
             title: Text(
               'Explore',
