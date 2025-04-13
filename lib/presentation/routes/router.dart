@@ -1,7 +1,10 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
+import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
 import 'package:tracking_app/presentation/screens/account/account_screen.dart';
 import 'package:tracking_app/presentation/screens/auth/pages/login_screen.dart';
@@ -14,15 +17,27 @@ import 'package:tracking_app/utils/preference_manager.dart';
 
 class AuthGuard extends ChangeNotifier {
   final BuildContext context;
+  bool isInitialCheckDone = false;
 
   AuthGuard(this.context) {
     context.read<AuthBloc>().stream.listen((state) {
+      print("Auth state changed: $state");
       notifyListeners();
     });
   }
 
-  bool get isAuthenticated =>
-      context.read<AuthBloc>().state is AuthAuthenticated;
+  void checkAuthStatus() {
+    if (!isInitialCheckDone) {
+      context.read<AuthBloc>().add(CheckAuthStatus());
+      isInitialCheckDone = true;
+    }
+  }
+
+  bool get isAuthenticated {
+    final state = context.read<AuthBloc>().state;
+    print("Current auth state: $state");
+    return state is AuthAuthenticated;
+  }
 }
 
 GoRouter getRouter(BuildContext context) {
@@ -34,6 +49,7 @@ GoRouter getRouter(BuildContext context) {
     refreshListenable: authGuard,
     redirect: (context, state) async {
       final isAuthenticated = authGuard.isAuthenticated;
+      print("Authentication status: $isAuthenticated");
       final isLoggingIn = state.matchedLocation == '/login';
       final isOnboarding = state.matchedLocation == '/onboard';
 

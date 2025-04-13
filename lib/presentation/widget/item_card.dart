@@ -53,7 +53,7 @@ class _ItemCardState extends State<ItemCard> {
               // Product image container
               Container(
                 decoration: BoxDecoration(
-                  color: kStaticColor,
+                  color: kBGSecondaryColor,
                   borderRadius: BorderRadius.circular(12.r),
                 ),
                 height: 180.h,
@@ -107,7 +107,7 @@ class _ItemCardState extends State<ItemCard> {
               widget.productName,
               style: GoogleFonts.poppins(
                 fontSize: ml,
-                fontWeight: FontWeight.w600,
+                fontWeight: FontWeight.w500,
               ),
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
