@@ -1,5 +1,9 @@
+import 'dart:convert';
+
 import 'package:tracking_app/data/model/auth_creadentials_model.dart';
+import 'package:tracking_app/utils/constants.dart';
 import 'package:tracking_app/utils/preference_manager.dart';
+import 'package:http/http.dart' as http;
 
 class AuthRepository {
   final PreferencesManager preferencesManager;
@@ -8,8 +12,16 @@ class AuthRepository {
 
   Future<LoginCredentials?> login(String email, String password) async {
     await Future.delayed(Duration(seconds: 2));
-    if (email == "admin" && password == "pass") {
-      return LoginCredentials(email: email, password: password);
+    final value = {'username': email, 'password': password};
+    final json = jsonEncode(value);
+    final response = await http.post(
+      Uri.parse(baseUrl + loginUrl),
+      headers: {'Content-Type': 'application/json'},
+      body: json,
+    );
+
+    if (response.statusCode == 200) {
+      return jsonDecode(response.body);
     }
     return null;
   }

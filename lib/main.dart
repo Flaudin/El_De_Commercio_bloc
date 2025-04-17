@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_bloc.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
@@ -33,6 +34,19 @@ class MyApp extends StatelessWidget {
           return MaterialApp.router(
             debugShowCheckedModeBanner: false,
             routerConfig: getRouter(context),
+            theme: ThemeData(
+              textTheme: GoogleFonts.interTextTheme(
+                Theme.of(context).textTheme,
+              ),
+              primaryTextTheme: GoogleFonts.interTextTheme(
+                Theme.of(context).primaryTextTheme,
+              ),
+              appBarTheme: AppBarTheme(
+                titleTextStyle: GoogleFonts.inter(
+                  textStyle: Theme.of(context).textTheme.titleLarge,
+                ),
+              ),
+            ),
           );
         },
       ),

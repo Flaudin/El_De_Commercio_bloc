@@ -50,3 +50,8 @@ double ml = 14.sp;
 double lg = 16.sp;
 double xl = 18.sp;
 double header = 24.sp;
+
+// API Endpoints
+String baseUrl = "http://localhost:5293/";
+String loginUrl = "api/auth/login";
+String registerUrl = "api/auth/register";

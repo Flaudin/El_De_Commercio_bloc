@@ -12,6 +12,8 @@ import 'package:tracking_app/presentation/screens/cart/cart_screen.dart';
 import 'package:tracking_app/presentation/screens/category/category_screen.dart';
 import 'package:tracking_app/presentation/screens/home/home_screen.dart';
 import 'package:tracking_app/presentation/screens/onboarding/onboarding_screen.dart';
+import 'package:tracking_app/presentation/screens/product/product_screen.dart';
+import 'package:tracking_app/presentation/screens/product_list/product_list_screen.dart';
 import 'package:tracking_app/presentation/screens/shellscreen/shell_screen.dart';
 import 'package:tracking_app/utils/preference_manager.dart';
 
@@ -80,6 +82,11 @@ GoRouter getRouter(BuildContext context) {
     routes: [
       GoRoute(path: '/onboard', builder: (context, state) => Onboarding()),
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
+      GoRoute(
+        path: '/productlist',
+        builder: (context, state) => ProductListScreen(),
+      ),
+      GoRoute(path: '/product', builder: (context, state) => ProductScreen()),
       ShellRoute(
         routes: [
           GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
