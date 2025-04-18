@@ -3,7 +3,6 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
-import 'package:tracking_app/data/model/auth_creadentials_model.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
@@ -23,12 +22,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     Emitter<AuthState> emit,
   ) async {
     emit(AuthLoading());
-    final creds = await authRepository.login(event.email, event.password);
-
-    if (creds != null) {
-      emit(AuthAuthenticated(creds));
-    } else {
-      emit(AuthFailure("Invalid credentials"));
+    try {
+      print("Attempting login with: ${event.email}");
+      final creds = await authRepository.login(event.email, event.password);
+      if (creds != null) {
+        await authRepository.preferencesManager.saveAuthCredentials(creds);
+        print("Login successful, emitting AuthAuthenticated");
+        emit(AuthAuthenticated(creds));
+      } else {
+        print("Login failed: null credentials returned");
+        emit(AuthFailure("Login failed"));
+      }
+    } catch (e) {
+      print("Login error: $e");
+      final errorMessage = e.toString().replaceAll("Exception: ", "");
+      emit(AuthFailure(errorMessage));
     }
   }
 
@@ -51,22 +59,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     emit(AuthInitial());
   }
 
-  @override
-  AuthState? fromJson(Map<String, dynamic> json) {
-    try {
-      final stateType = json['state_type'] as String?;
-      if (stateType == 'authenticated') {
-        final email = json['email'] as String;
-        final password = json['password'] as String;
-        return AuthAuthenticated(
-          LoginCredentials(email: email, password: password),
-        );
-      }
-      return AuthInitial();
-    } catch (_) {
-      return AuthInitial();
-    }
-  }
+  // @override
+  // AuthState? fromJson(Map<String, dynamic> json) {
+  //   try {
+  //     final stateType = json['state_type'] as String?;
+  //     if (stateType == 'authenticated') {
+  //       final email = json['email'] as String;
+  //       final password = json['password'] as String;
+  //       return AuthAuthenticated(
+  //         LoginCredentials(email: email, password: password),
+  //       );
+  //     }
+  //     return AuthInitial();
+  //   } catch (_) {
+  //     return AuthInitial();
+  //   }
+  // }
 
   @override
   Map<String, dynamic>? toJson(AuthState state) {

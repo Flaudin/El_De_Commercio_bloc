@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:tracking_app/data/model/auth_creadentials_model.dart';
 
 class PreferencesManager {
   static const String keyOnboardingCompleted = 'onboarding_completed';
+  static const String authCredentials = 'authCredentials';
 
   Future<bool> hasCompletedOnboarding() async {
     final prefs = await SharedPreferences.getInstance();
@@ -21,30 +24,30 @@ class PreferencesManager {
 
   Future<void> saveAuthCredentials(LoginCredentials credentials) async {
     final prefs = await SharedPreferences.getInstance();
-    await prefs.setString('email', credentials.email);
-    await prefs.setString('password', credentials.password);
-    await prefs.setBool('is_authenticated', true);
+    await prefs.setString('authCredentials', jsonEncode(credentials.toJson()));
+    await prefs.setBool('is_authenticated', true); // Uncomment this line
   }
 
   Future<LoginCredentials?> getAuthCredentials() async {
     final prefs = await SharedPreferences.getInstance();
-    final isAuth = prefs.getBool('is_authenticated') ?? false;
+    final credentialsJson = prefs.getString('authCredentials');
 
-    if (!isAuth) return null;
-
-    final email = prefs.getString('email') ?? '';
-    final password = prefs.getString('password') ?? '';
-
-    if (email.isNotEmpty && password.isNotEmpty) {
-      return LoginCredentials(email: email, password: password);
+    if (credentialsJson == null || credentialsJson.isEmpty) {
+      return null;
     }
-    return null;
+
+    try {
+      return LoginCredentials.fromJson(jsonDecode(credentialsJson));
+    } catch (e) {
+      print("Error parsing stored credentials: $e");
+      await clearAuthCredentials(); // Clear invalid credentials
+      return null;
+    }
   }
 
   Future<void> clearAuthCredentials() async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('is_authenticated', false);
-    await prefs.remove('email');
-    await prefs.remove('password');
+    await prefs.remove('authCredentials');
   }
 }

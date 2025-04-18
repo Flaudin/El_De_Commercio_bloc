@@ -52,6 +52,6 @@ double xl = 18.sp;
 double header = 24.sp;
 
 // API Endpoints
-String baseUrl = "http://localhost:5293/";
+String baseUrl = "http://192.168.100.21:5293/";
 String loginUrl = "api/auth/login";
 String registerUrl = "api/auth/register";

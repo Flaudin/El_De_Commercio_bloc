@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,10 +20,10 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool passwordVisible = true;
 
   @override
   Widget build(BuildContext context) {
-    bool passwordVisible = false;
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
@@ -157,6 +159,9 @@ class _LoginScreenState extends State<LoginScreen> {
                         height: 50.h,
                         child: ElevatedButton(
                           onPressed: () {
+                            print(
+                              "Login button pressed for: ${emailController.text}",
+                            );
                             context.read<AuthBloc>().add(
                               LoginRequest(
                                 email: emailController.text,

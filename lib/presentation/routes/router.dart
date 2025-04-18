@@ -47,7 +47,7 @@ GoRouter getRouter(BuildContext context) {
   final prefsManager = PreferencesManager();
 
   return GoRouter(
-    initialLocation: '/onboard',
+    initialLocation: '/home',
     refreshListenable: authGuard,
     redirect: (context, state) async {
       final isAuthenticated = authGuard.isAuthenticated;
@@ -82,6 +82,7 @@ GoRouter getRouter(BuildContext context) {
     routes: [
       GoRoute(path: '/onboard', builder: (context, state) => Onboarding()),
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
+      GoRoute(path: '/home', builder: (context, state) => HomeScreen()),
       GoRoute(
         path: '/productlist',
         builder: (context, state) => ProductListScreen(),
