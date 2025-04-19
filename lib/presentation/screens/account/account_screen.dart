@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
+import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
+import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class AccountScreen extends StatefulWidget {
@@ -11,84 +16,150 @@ class AccountScreen extends StatefulWidget {
 }
 
 class _AccountScreenState extends State<AccountScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Profile',
-          style: GoogleFonts.poppins(fontSize: lg, color: kTextColorSecondary),
-        ),
-        actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))],
-      ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 14.w),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            accountDetails(),
-            SizedBox(height: 24.h),
+  logout() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog.adaptive(
+          title: SizedBox(),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Logout',
+                style: TextStyle(fontSize: 18.sp, fontWeight: FontWeight.bold),
+              ),
+              Text('Are you sure you want to logout?'),
+            ],
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Cancel',
+                style: TextStyle(
+                  color: kErrorColor,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
             Container(
               decoration: BoxDecoration(
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withValues(alpha: 0.2),
-                    spreadRadius: 3,
-                    blurRadius: 4,
-                    offset: Offset(1, 2), // changes position of shadow
-                  ),
-                ],
-                color: kWhiteColor,
-                borderRadius: BorderRadius.circular(18.r),
+                color: kPrimaryColor,
+                borderRadius: BorderRadius.circular(4.r),
               ),
-              height: 520.h,
-              width: 360.w,
-              padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  accountOption(
-                    Icons.person_outline,
-                    'Edit Profile',
-                    kLightBlueColor,
-                    () {},
+              child: TextButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(LogoutRequest());
+                  context.go('/login');
+                },
+                child: Text(
+                  'Logout',
+                  style: TextStyle(
+                    color: kTextColorPrimary,
+                    fontWeight: FontWeight.w500,
                   ),
-                  accountOption(
-                    Icons.location_on_outlined,
-                    'Address',
-                    kLightBlueColor,
-                    () {},
-                  ),
-                  accountOption(
-                    Icons.notifications_none_outlined,
-                    'Notification',
-                    kLightBlueColor,
-                    () {},
-                  ),
-                  accountOption(
-                    Icons.security_outlined,
-                    'Security',
-                    kLightBlueColor,
-                    () {},
-                  ),
-                  accountOption(
-                    Icons.policy_outlined,
-                    'Privacy Policy',
-                    kLightBlueColor,
-                    () {},
-                  ),
-                  accountOption(
-                    Icons.exit_to_app_outlined,
-                    'Log out',
-                    kErrorColor,
-                    () {},
-                    forlogout: true,
-                  ),
-                ],
+                ),
               ),
             ),
           ],
+        );
+      },
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthInitial) {
+          context.go('/login');
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(
+            'Profile',
+            style: GoogleFonts.poppins(
+              fontSize: lg,
+              color: kTextColorSecondary,
+            ),
+          ),
+          actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
+          actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))],
+        ),
+        body: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 14.w),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              accountDetails(),
+              SizedBox(height: 24.h),
+              Container(
+                decoration: BoxDecoration(
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.grey.withValues(alpha: 0.2),
+                      spreadRadius: 3,
+                      blurRadius: 4,
+                      offset: Offset(1, 2), // changes position of shadow
+                    ),
+                  ],
+                  color: kWhiteColor,
+                  borderRadius: BorderRadius.circular(18.r),
+                ),
+                height: 520.h,
+                width: 360.w,
+                padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 24.h),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    accountOption(
+                      Icons.person_outline,
+                      'Edit Profile',
+                      kLightBlueColor,
+                      () {},
+                    ),
+                    accountOption(
+                      Icons.location_on_outlined,
+                      'Address',
+                      kLightBlueColor,
+                      () {},
+                    ),
+                    accountOption(
+                      Icons.notifications_none_outlined,
+                      'Notification',
+                      kLightBlueColor,
+                      () {},
+                    ),
+                    accountOption(
+                      Icons.security_outlined,
+                      'Security',
+                      kLightBlueColor,
+                      () {},
+                    ),
+                    accountOption(
+                      Icons.policy_outlined,
+                      'Privacy Policy',
+                      kLightBlueColor,
+                      () {},
+                    ),
+                    accountOption(
+                      Icons.exit_to_app_outlined,
+                      'Log out',
+                      kErrorColor,
+                      () {
+                        logout();
+                      },
+                      forlogout: true,
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );

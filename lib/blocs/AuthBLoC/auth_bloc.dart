@@ -55,26 +55,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void onLogoutRequest(LogoutRequest event, Emitter<AuthState> emit) {
+  void onLogoutRequest(LogoutRequest event, Emitter<AuthState> emit) async {
+    await authRepository.preferencesManager.clearAuthCredentials();
     emit(AuthInitial());
   }
-
-  // @override
-  // AuthState? fromJson(Map<String, dynamic> json) {
-  //   try {
-  //     final stateType = json['state_type'] as String?;
-  //     if (stateType == 'authenticated') {
-  //       final email = json['email'] as String;
-  //       final password = json['password'] as String;
-  //       return AuthAuthenticated(
-  //         LoginCredentials(email: email, password: password),
-  //       );
-  //     }
-  //     return AuthInitial();
-  //   } catch (_) {
-  //     return AuthInitial();
-  //   }
-  // }
 
   @override
   Map<String, dynamic>? toJson(AuthState state) {

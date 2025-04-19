@@ -3,8 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
+import 'package:tracking_app/blocs/CategoryBLoC/category_bloc.dart';
 import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_bloc.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
+import 'package:tracking_app/data/repositories/category_repository.dart';
 import 'package:tracking_app/presentation/routes/router.dart';
 import 'package:tracking_app/utils/preference_manager.dart';
 
@@ -21,10 +23,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final PreferencesManager preferencesManager = PreferencesManager();
     final authRepository = AuthRepository(preferencesManager);
+    final categoryRepository = CategoryRepository();
     return MultiBlocProvider(
       providers: [
         BlocProvider<OnboardingBloc>(create: (context) => OnboardingBloc()),
         BlocProvider<AuthBloc>(create: (context) => AuthBloc(authRepository)),
+        BlocProvider<CategoryBloc>(
+          create: (context) => CategoryBloc(categoryRepository),
+        ),
       ],
       child: ScreenUtilInit(
         designSize: Size(375, 812),

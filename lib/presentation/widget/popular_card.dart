@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class PopularCard extends StatefulWidget {
@@ -22,7 +21,8 @@ class _PopularCardState extends State<PopularCard> {
         width: 260.w,
         height: 140.h,
         decoration: BoxDecoration(
-          color: Color(0xFFEFEFEF),
+          //color: Color(0xFFEFEFEF),
+          border: Border.all(color: kBorderPrimaryColor),
           borderRadius: BorderRadius.circular(18.r),
         ),
         child: Row(
@@ -36,18 +36,15 @@ class _PopularCardState extends State<PopularCard> {
                 children: [
                   Text(
                     'Product Brand',
-                    style: GoogleFonts.poppins(
-                      fontSize: lg,
-                      fontWeight: FontWeight.w600,
-                    ),
+                    style: TextStyle(fontSize: lg, fontWeight: FontWeight.w600),
                   ),
                   Text(
                     'Product Title',
-                    style: GoogleFonts.poppins(fontSize: ml, color: kGreyColor),
+                    style: TextStyle(fontSize: ml, color: kGreyColor),
                   ),
                   Text(
-                    '132.99',
-                    style: GoogleFonts.poppins(
+                    "\$132.99",
+                    style: TextStyle(
                       fontSize: ml,
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w600,

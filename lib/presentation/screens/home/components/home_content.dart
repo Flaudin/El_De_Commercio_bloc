@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:tracking_app/presentation/widget/item_card.dart';
 import 'package:tracking_app/presentation/widget/popular_card.dart';
+import 'package:tracking_app/presentation/widget/product_card.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class HomeContent extends StatefulWidget {
@@ -28,7 +27,56 @@ class _HomeContentState extends State<HomeContent> {
                   bottomRight: Radius.circular(28.r),
                 ),
               ),
-              height: 160.h,
+              height: 260.h,
+              padding: EdgeInsets.symmetric(horizontal: 12.w),
+              child: Row(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Lorem ipsum',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: 22.sp,
+                          color: kTextColorPrimary,
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            'dolor sit ',
+                            style: TextStyle(
+                              fontSize: 22.sp,
+                              color: kTextColorPrimary,
+                            ),
+                          ),
+                          Text(
+                            'amet',
+                            style: TextStyle(
+                              fontSize: 22.sp,
+                              color: kTextColorPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 14.h),
+                      Text(
+                        'See more >',
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(
+                          fontSize: ml,
+                          color: kTextColorPrimary,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             SizedBox(height: 24.h),
             popularBrands(),
@@ -50,15 +98,12 @@ class _HomeContentState extends State<HomeContent> {
             children: [
               Text(
                 'Newest Products',
-                style: GoogleFonts.poppins(
-                  fontSize: ml,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
               ),
               Spacer(),
               Text(
                 'See more >',
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   fontSize: sm,
                   fontWeight: FontWeight.w600,
                   color: kPrimaryColor,
@@ -70,9 +115,8 @@ class _HomeContentState extends State<HomeContent> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              spacing: 12.w,
               children: List.generate(5, (index) {
-                return ItemCard();
+                return ProductCard();
               }),
             ),
           ),
@@ -91,15 +135,12 @@ class _HomeContentState extends State<HomeContent> {
             children: [
               Text(
                 'Popular',
-                style: GoogleFonts.poppins(
-                  fontSize: ml,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
               ),
               Spacer(),
               Text(
                 'See more >',
-                style: GoogleFonts.poppins(
+                style: TextStyle(
                   fontSize: sm,
                   fontWeight: FontWeight.w600,
                   color: kPrimaryColor,

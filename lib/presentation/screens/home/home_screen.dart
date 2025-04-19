@@ -17,6 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
     return PopScope(
       canPop: false,
       child: Scaffold(
+        backgroundColor: kBGPrimaryColor,
         extendBodyBehindAppBar: false,
         appBar: PreferredSize(
           preferredSize: Size.fromHeight(kToolbarHeight),
