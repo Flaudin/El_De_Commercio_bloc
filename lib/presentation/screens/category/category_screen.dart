@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:lottie/lottie.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:tracking_app/blocs/CategoryBLoC/category_bloc.dart';
 import 'package:tracking_app/blocs/CategoryBLoC/category_event.dart';
@@ -103,8 +104,12 @@ class _CategoryScreenState extends State<CategoryScreen> {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Error: ${state.message}'),
+                  LottieBuilder.asset(
+                    'android/assets/lottie/no-results-found.json',
+                  ),
+                  Text('No results found.'),
                   SizedBox(height: 16),
                   ElevatedButton(
                     onPressed: () {

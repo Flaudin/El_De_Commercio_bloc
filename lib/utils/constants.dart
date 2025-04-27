@@ -49,9 +49,11 @@ double sm = 12.sp;
 double ml = 14.sp;
 double lg = 16.sp;
 double xl = 18.sp;
+double title = 20.sp;
 double header = 24.sp;
 
 // API Endpoints
 String baseUrl = "http://192.168.100.21:5293/";
 String loginUrl = "api/auth/login";
 String registerUrl = "api/auth/register";
+String gmapsKey = "AIzaSyAONoLV-NYk9ye0QO7M1slYI1jAQCtj3rQ";

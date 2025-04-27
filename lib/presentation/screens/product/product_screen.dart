@@ -15,6 +15,7 @@ class ProductScreen extends StatefulWidget {
   final double price;
   final Function(bool)? onFavoriteChanged;
   final String description;
+  final String source;
 
   const ProductScreen({
     super.key,
@@ -27,6 +28,7 @@ class ProductScreen extends StatefulWidget {
     this.onFavoriteChanged,
     this.description =
         'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consectetur adipiscing elit.',
+    required this.source,
   });
 
   @override
@@ -75,7 +77,22 @@ class _ProductScreenState extends State<ProductScreen> {
         backgroundColor: kBGPrimaryColor,
         title: IconButton(
           onPressed: () {
-            context.go('/productlist');
+            switch (widget.source) {
+              case 'home':
+                context.go('/home');
+                break;
+              case 'cart':
+                context.go('/cart');
+                break;
+              case 'favorites':
+                // Assuming favorites is inside your account screen
+                context.go('/account');
+                break;
+              case 'productlist':
+              default:
+                context.go('/productlist');
+                break;
+            }
           },
           icon: Icon(Icons.arrow_back, color: kGrayColor),
         ),

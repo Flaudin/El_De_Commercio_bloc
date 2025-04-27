@@ -37,7 +37,6 @@ class CartCard extends StatelessWidget {
       child: Row(
         children: [
           //Product image container
-          // Product image container
           Container(
             height: 90.h,
             width: 90.w,
@@ -67,9 +66,8 @@ class CartCard extends StatelessWidget {
                       child: Text(
                         productName,
                         style: TextStyle(
-                          fontSize: 16.sp,
+                          fontSize: ml,
                           fontWeight: FontWeight.w600,
-                          color: kBlackColor,
                         ),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,

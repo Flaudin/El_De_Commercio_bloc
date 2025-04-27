@@ -76,11 +76,7 @@ class _CartScreenState extends State<CartScreen> {
         titleSpacing: 12.w,
         title: Text(
           "Cart",
-          style: TextStyle(
-            fontSize: 18.sp,
-            fontWeight: FontWeight.w600,
-            color: Colors.black,
-          ),
+          style: TextStyle(fontSize: xl, fontWeight: FontWeight.w800),
         ),
         actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
         actions: [

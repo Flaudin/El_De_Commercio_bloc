@@ -36,10 +36,10 @@ class _PopularCardState extends State<PopularCard> {
                 children: [
                   Text(
                     'Product Brand',
-                    style: TextStyle(fontSize: lg, fontWeight: FontWeight.w600),
+                    style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
                   ),
                   Text(
-                    'Product Title',
+                    'Description',
                     style: TextStyle(fontSize: ml, color: kGreyColor),
                   ),
                   Text(

@@ -115,8 +115,12 @@ class _HomeContentState extends State<HomeContent> {
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
+              spacing: 16.w,
               children: List.generate(5, (index) {
-                return ProductCard();
+                return SizedBox(
+                  width: 170.w,
+                  child: ProductCard(source: 'home'),
+                );
               }),
             ),
           ),

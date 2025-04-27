@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/presentation/screens/home/components/home_content.dart';
 import 'package:tracking_app/utils/constants.dart';
 
@@ -28,9 +27,10 @@ class _HomeScreenState extends State<HomeScreen> {
             shadowColor: Colors.black45, // Add shadow for better distinction
             title: Text(
               'Explore',
-              style: GoogleFonts.poppins(
-                fontSize: lg,
-                color: kTextColorPrimary,
+              style: TextStyle(
+                fontSize: xl,
+                fontWeight: FontWeight.w800,
+                color: kWhiteColor,
               ),
             ),
             actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),

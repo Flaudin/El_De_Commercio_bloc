@@ -20,7 +20,7 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  bool passwordVisible = true;
+  bool passwordVisible = false;
 
   @override
   Widget build(BuildContext context) {
@@ -46,13 +46,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     children: <Widget>[
                       SizedBox(height: 40.h),
                       Text(
-                        'Sign In',
+                        'Log In',
                         style: GoogleFonts.inter(
                           fontSize: 20.sp,
                           color: kGreyColor,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+                      SizedBox(height: 20.h),
                       Text(
                         "Hi Welcome back, you've been missed",
                         style: TextStyle(fontSize: ml),
@@ -94,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         controller: passwordController,
                         keyboardType: TextInputType.visiblePassword,
-                        obscureText: passwordVisible,
+                        obscureText: !passwordVisible,
                         decoration: InputDecoration(
                           labelText: 'Password',
                           labelStyle: TextStyle(
@@ -136,7 +137,15 @@ class _LoginScreenState extends State<LoginScreen> {
                           ),
                         ),
                         style: TextStyle(color: kTextColorSecondary),
-                        textInputAction: TextInputAction.send,
+                        textInputAction: TextInputAction.done,
+                        onFieldSubmitted: (value) {
+                          context.read<AuthBloc>().add(
+                            LoginRequest(
+                              email: emailController.text,
+                              password: passwordController.text,
+                            ),
+                          );
+                        },
                       ),
                       SizedBox(height: 20),
                       GestureDetector(
@@ -274,14 +283,19 @@ class _LoginScreenState extends State<LoginScreen> {
                             ),
                           ),
                           SizedBox(width: 4.w),
-                          Text(
-                            "Sign Up",
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: kPrimaryColor,
-                              fontSize: ml,
-                              decoration: TextDecoration.underline,
-                              decorationColor: kPrimaryColor,
+                          GestureDetector(
+                            onTap: () {
+                              context.go('/signup');
+                            },
+                            child: Text(
+                              "Sign Up",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: kPrimaryColor,
+                                fontSize: ml,
+                                decoration: TextDecoration.underline,
+                                decorationColor: kPrimaryColor,
+                              ),
                             ),
                           ),
                         ],

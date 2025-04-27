@@ -69,7 +69,10 @@ class _ProductListScreenState extends State<ProductListScreen> {
           minItemWidth: 124.w,
           horizontalGridMargin: 18.w,
           verticalGridMargin: 12.h,
-          children: List.generate(6, (index) => ProductCard()),
+          children: List.generate(
+            6,
+            (index) => ProductCard(source: 'productlist'),
+          ),
         ),
       ),
     );

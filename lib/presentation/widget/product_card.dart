@@ -14,6 +14,7 @@ class ProductCard extends StatefulWidget {
   final int soldCount;
   final double price;
   final Function(bool)? onFavoriteChanged;
+  final String source;
 
   const ProductCard({
     super.key,
@@ -24,6 +25,7 @@ class ProductCard extends StatefulWidget {
     this.soldCount = 3589,
     this.price = 126.99,
     this.onFavoriteChanged,
+    required this.source,
   });
 
   @override
@@ -53,7 +55,14 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/product');
+        switch (widget.source) {
+          case 'home':
+            context.go('/product?source=home');
+            break;
+          case 'productlist':
+            context.go('/product?source=productlist');
+            break;
+        }
       },
       child: SizedBox(
         width: 220.w,
@@ -110,7 +119,7 @@ class _ProductCardState extends State<ProductCard> {
             SizedBox(height: 8),
             Text(
               widget.productName,
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
             ),
             SizedBox(height: 4),
             Row(

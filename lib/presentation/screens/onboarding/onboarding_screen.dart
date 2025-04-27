@@ -21,19 +21,19 @@ class _OnboardingState extends State<Onboarding> {
   final List<OnboardingModel> contents = [
     OnboardingModel(
       image: 'android/assets/lottie/ani1.json',
-      title: 'Welcome to the App',
+      title: 'Seamless Shopping Experience',
       description:
           'An amazing experience awaits you. Discover how we can help you achieve your goals.',
     ),
     OnboardingModel(
       image: 'assets/images/onboarding2.png',
-      title: 'Explore Features',
+      title: 'Wishlist to Dream Product in Just a Few Clicks',
       description:
           'Our app provides powerful tools to enhance your productivity and simplify your life.',
     ),
     OnboardingModel(
       image: 'assets/images/onboarding3.png',
-      title: 'Get Started Now',
+      title: 'Swift and Reliable Delivery',
       description:
           'Join our community today and discover the full potential of our application.',
     ),

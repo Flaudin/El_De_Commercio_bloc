@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
@@ -21,6 +20,7 @@ class _AccountScreenState extends State<AccountScreen> {
       context: context,
       builder: (context) {
         return AlertDialog.adaptive(
+          backgroundColor: kWhiteColor,
           title: SizedBox(),
           content: Column(
             mainAxisSize: MainAxisSize.min,
@@ -82,10 +82,7 @@ class _AccountScreenState extends State<AccountScreen> {
         appBar: AppBar(
           title: Text(
             'Profile',
-            style: GoogleFonts.poppins(
-              fontSize: lg,
-              color: kTextColorSecondary,
-            ),
+            style: TextStyle(fontSize: xl, fontWeight: FontWeight.w800),
           ),
           actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
           actions: [IconButton(onPressed: () {}, icon: Icon(Icons.more_horiz))],
@@ -120,31 +117,41 @@ class _AccountScreenState extends State<AccountScreen> {
                       Icons.person_outline,
                       'Edit Profile',
                       kLightBlueColor,
-                      () {},
+                      () {
+                        context.go('/profile');
+                      },
                     ),
                     accountOption(
                       Icons.location_on_outlined,
                       'Address',
                       kLightBlueColor,
-                      () {},
+                      () {
+                        context.go('/address');
+                      },
                     ),
                     accountOption(
                       Icons.notifications_none_outlined,
                       'Notification',
                       kLightBlueColor,
-                      () {},
+                      () {
+                        context.go('/notifications');
+                      },
                     ),
                     accountOption(
                       Icons.security_outlined,
                       'Security',
                       kLightBlueColor,
-                      () {},
+                      () {
+                        context.go('/security');
+                      },
                     ),
                     accountOption(
                       Icons.policy_outlined,
                       'Privacy Policy',
                       kLightBlueColor,
-                      () {},
+                      () {
+                        context.go('/privacy-policy');
+                      },
                     ),
                     accountOption(
                       Icons.exit_to_app_outlined,
@@ -184,7 +191,7 @@ class _AccountScreenState extends State<AccountScreen> {
                 SizedBox(width: 12.w),
                 Text(
                   text,
-                  style: GoogleFonts.poppins(
+                  style: TextStyle(
                     fontSize: ml,
                     fontWeight: FontWeight.w500,
                     color: color,
@@ -234,14 +241,11 @@ class _AccountScreenState extends State<AccountScreen> {
           children: [
             Text(
               'Account Name',
-              style: GoogleFonts.poppins(
-                fontSize: lg,
-                fontWeight: FontWeight.w500,
-              ),
+              style: TextStyle(fontSize: lg, fontWeight: FontWeight.w500),
             ),
             Text(
               'Contact No.',
-              style: GoogleFonts.poppins(
+              style: TextStyle(
                 fontSize: ml,
                 color: kGreyColor,
                 fontWeight: FontWeight.w500,
