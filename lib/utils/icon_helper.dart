@@ -2,55 +2,78 @@ import 'package:flutter/material.dart';
 
 IconData getIcon(String iconName) {
   switch (iconName) {
-    case 'Icons.devices':
+    case 'Electronics & Tech':
       return Icons.devices;
-    case 'Icons.chair':
-      return Icons.chair;
-    case 'Icons.fitness_center':
+    case 'Health & Wellness':
       return Icons.fitness_center;
-    case 'Icons.diamond':
+    case 'Jewelry & Accessories':
       return Icons.diamond;
-    case 'Icons.kitchen':
+    case 'Home & Kitchen':
       return Icons.kitchen;
-    case 'Icons.book':
+    case 'Books & Media':
       return Icons.book;
-    case 'Icons.toys':
+    case 'Toys & Games':
       return Icons.toys;
-    case 'Icons.spa':
-      return Icons.spa;
-    case 'Icons.smartphone':
+    case 'Smart Home Devices':
       return Icons.smartphone;
-    case 'Icons.watch':
-      return Icons.watch;
-    case 'Icons.local_grocery_store':
+    case 'Grocery & Gourmet':
       return Icons.local_grocery_store;
-    case 'Icons.home':
+    case 'Home Decor & Furniture':
       return Icons.home;
-    case 'Icons.headphones':
-      return Icons.headphones;
-    case 'Icons.computer':
-      return Icons.computer;
-    case 'Icons.directions_car':
+    case 'Automotive & Tools':
       return Icons.directions_car;
-    case 'Icons.pets':
+    case 'Pet Supplies':
       return Icons.pets;
-    case 'Icons.local_florist':
+    case 'Garden & Outdoor Living':
       return Icons.local_florist;
-    case 'Icons.sports_basketball':
+    case 'Sports & Outdoors':
       return Icons.sports_basketball;
-    case 'Icons.videogame_asset':
-      return Icons.videogame_asset;
-    case 'Icons.child_care':
+    case 'Baby & Kids':
       return Icons.child_care;
-    case 'Icons.shopping_basket':
+    case 'Sustainable & Eco-friendly':
       return Icons.shopping_basket;
-    case 'Icons.camera_alt':
-      return Icons.camera_alt;
-    case 'Icons.card_giftcard':
+    case 'Office & School Supplies':
+      return Icons.edit;
+    case 'Gifts & Special Occasions':
       return Icons.card_giftcard;
-    case 'Icons.shopping_bag':
+    case 'Fashion & Apparel':
       return Icons.shopping_bag;
     default:
       return Icons.category;
+  }
+}
+
+Color getIconColor(String title) {
+  switch (title) {
+    case 'Electronics & Tech':
+      return Colors.green;
+    case 'Health & Wellness':
+      return Colors.red;
+    case 'Smart Home Devices':
+      return Colors.indigo;
+    case 'Jewelry & Accessories':
+      return Colors.purple;
+    case 'Home & Kitchen':
+      return Colors.orange;
+    case 'Books & Media':
+      return Colors.teal;
+    case 'Toys & Games':
+      return Colors.pink;
+    case 'Grocery & Gourmet':
+      return Colors.deepOrange;
+    case 'Home Decor & Furniture':
+      return Colors.lightBlue;
+    case 'Automotive & Tools':
+      return Colors.redAccent;
+    case 'Pet Supplies':
+      return Colors.brown;
+    case 'Garden & Outdoor Living':
+      return Colors.lightGreenAccent;
+    case 'Sports & Outdoors':
+      return Colors.deepPurple;
+    case 'Baby & Kids':
+      return Colors.amber;
+    default:
+      return Colors.grey;
   }
 }

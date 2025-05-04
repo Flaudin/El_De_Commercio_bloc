@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tracking_app/data/model/brand_model.dart';
 import 'package:tracking_app/utils/constants.dart';
 
-class PopularCard extends StatefulWidget {
-  const PopularCard({super.key});
+class PopularCard extends StatelessWidget {
+  final BrandModel brand;
 
-  @override
-  State<PopularCard> createState() => _PopularCardState();
-}
+  const PopularCard({super.key, required this.brand});
 
-class _PopularCardState extends State<PopularCard> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -35,7 +33,7 @@ class _PopularCardState extends State<PopularCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    'Product Brand',
+                    brand.brandName,
                     style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
                   ),
                   Text(
@@ -43,7 +41,7 @@ class _PopularCardState extends State<PopularCard> {
                     style: TextStyle(fontSize: ml, color: kGreyColor),
                   ),
                   Text(
-                    "\$132.99",
+                    "See more",
                     style: TextStyle(
                       fontSize: ml,
                       color: kPrimaryColor,

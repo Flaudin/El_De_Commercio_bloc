@@ -95,7 +95,11 @@ class _CategoryScreenState extends State<CategoryScreen> {
               children: List.generate(
                 categories.length,
                 (index) => CategoryCard(
-                  icons: Icon(getIcon(categories[index].iconsName.toString())),
+                  icons: Icon(
+                    getIcon(categories[index].title),
+                    color: getIconColor(categories[index].title),
+                    size: 32,
+                  ),
                   title: categories[index].title,
                 ),
               ),

@@ -1,25 +1,14 @@
 class CategoryModel {
-  final String id;
-  String iconsName;
+  final int id;
   String title;
-  final List<dynamic> products;
-  CategoryModel({
-    required this.id,
-    required this.iconsName,
-    required this.title,
-    required this.products,
-  });
+  CategoryModel({required this.id, required this.title});
 
   factory CategoryModel.fromJson(Map<String, dynamic> json) {
     return CategoryModel(
-      iconsName: json['icon'].toString(),
       title: json['title'],
-      id: json['CategoryId'],
-      products: json['products'] ?? [], // Default to empty list if null
+      id: json['categoryId'], // Default to empty list if null
     );
   }
-
-  // Convert icon name to actual Icon widget (not stored in model)
 }
 
 // class CategoryData {

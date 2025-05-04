@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
+import 'package:tracking_app/data/model/product_model.dart';
 import 'package:tracking_app/presentation/screens/account/account_screen.dart';
 import 'package:tracking_app/presentation/screens/account/components/add_address_screen.dart';
 import 'package:tracking_app/presentation/screens/account/components/address_screen.dart';
@@ -98,8 +99,13 @@ GoRouter getRouter(BuildContext context) {
       GoRoute(
         path: '/product',
         builder: (context, state) {
-          final source = state.uri.queryParameters['source'] ?? 'productlist';
-          return ProductScreen(source: source);
+          final extras = state.extra as Map<String, dynamic>?;
+          final source = extras?['source'] ?? 'productlist';
+          final product = extras?['product'] as ProductModel?;
+          if (product == null) {
+            return const Center(child: Text('Product not found'));
+          }
+          return ProductScreen(source: source, product: product);
         },
       ),
       GoRoute(path: '/signup', builder: (context, state) => SignupScreen()),

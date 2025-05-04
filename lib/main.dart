@@ -3,10 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_bloc.dart';
 import 'package:tracking_app/blocs/CategoryBLoC/category_bloc.dart';
 import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_bloc.dart';
+import 'package:tracking_app/blocs/ProductBLoC/product_bloc.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
+import 'package:tracking_app/data/repositories/brand_repository.dart';
 import 'package:tracking_app/data/repositories/category_repository.dart';
+import 'package:tracking_app/data/repositories/product_repository.dart';
 import 'package:tracking_app/presentation/routes/router.dart';
 import 'package:tracking_app/utils/preference_manager.dart';
 
@@ -24,6 +28,8 @@ class MyApp extends StatelessWidget {
     final PreferencesManager preferencesManager = PreferencesManager();
     final authRepository = AuthRepository(preferencesManager);
     final categoryRepository = CategoryRepository();
+    final brandRepository = BrandRepository();
+    final productRepository = ProductRepository();
     return MultiBlocProvider(
       providers: [
         BlocProvider<OnboardingBloc>(create: (context) => OnboardingBloc()),
@@ -31,6 +37,8 @@ class MyApp extends StatelessWidget {
         BlocProvider<CategoryBloc>(
           create: (context) => CategoryBloc(categoryRepository),
         ),
+        BlocProvider(create: (context) => BrandBloc(brandRepository)),
+        BlocProvider(create: (context) => ProductBloc(productRepository)),
       ],
       child: ScreenUtilInit(
         designSize: Size(375, 812),

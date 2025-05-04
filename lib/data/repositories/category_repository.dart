@@ -21,9 +21,14 @@ class CategoryRepository {
             },
           );
       print("Status code ${response.statusCode}");
+      //print("Category response body: ${response.body}");
       if (response.statusCode == 200) {
-        final List<dynamic> jsonList = jsonDecode(response.body);
-        return jsonList.map((json) => CategoryModel.fromJson(json)).toList();
+        final Map<String, dynamic> jsonList = json.decode(response.body);
+        List<dynamic> categoryList = jsonList['\$values'];
+        print("CategoryList: ${jsonList['\$values']}");
+        return categoryList
+            .map((category) => CategoryModel.fromJson(category))
+            .toList();
       } else {
         throw Exception("Failed to load categories: ${response.statusCode}");
       }

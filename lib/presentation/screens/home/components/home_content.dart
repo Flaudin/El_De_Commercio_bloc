@@ -1,5 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_bloc.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_event.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_state.dart';
+import 'package:tracking_app/blocs/ProductBLoC/product_bloc.dart';
+import 'package:tracking_app/blocs/ProductBLoC/product_event.dart';
+import 'package:tracking_app/blocs/ProductBLoC/product_state.dart';
 import 'package:tracking_app/presentation/widget/popular_card.dart';
 import 'package:tracking_app/presentation/widget/product_card.dart';
 import 'package:tracking_app/utils/constants.dart';
@@ -12,6 +19,16 @@ class HomeContent extends StatefulWidget {
 }
 
 class _HomeContentState extends State<HomeContent> {
+  @override
+  void initState() {
+    super.initState();
+    // Access the provided BrandBloc and trigger the fetch event
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<BrandBloc>().add(FetchBrandsByPopular());
+      context.read<ProductBloc>().add(FetchProductsByPopular());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -112,17 +129,68 @@ class _HomeContentState extends State<HomeContent> {
             ],
           ),
           SizedBox(height: 12.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              spacing: 16.w,
-              children: List.generate(5, (index) {
+          BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              // No need to trigger FetchBrands here as we're doing it in initState
+              if (state is ProductLoading || state is ProductInitial) {
                 return SizedBox(
-                  width: 170.w,
-                  child: ProductCard(source: 'home'),
+                  height: 150.h, // Set a fixed height for the loading indicator
+                  child: Center(child: CircularProgressIndicator()),
                 );
-              }),
-            ),
+              }
+
+              if (state is ProductError) {
+                return SizedBox(
+                  height: 150.h,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Error: ${state.message}'),
+                        SizedBox(height: 8.h),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Retry fetching brands
+                            context.read<ProductBloc>().add(RefreshProducts());
+                          },
+                          child: Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+              if (state is ProductLoaded) {
+                final products = state.product;
+                if (products.isEmpty) {
+                  return SizedBox(
+                    height: 150.h,
+                    child: Center(child: Text('No Popular brands available')),
+                  );
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    spacing: 16.w,
+                    children: List.generate(products.length, (index) {
+                      return SizedBox(
+                        width: 170.w,
+                        child: ProductCard(
+                          source: 'home',
+                          product: products[index],
+                        ),
+                      );
+                    }),
+                  ),
+                );
+              }
+
+              return SizedBox(
+                height: 150.h,
+                child: Center(child: Text('No data available')),
+              );
+            },
           ),
         ],
       ),
@@ -153,14 +221,65 @@ class _HomeContentState extends State<HomeContent> {
             ],
           ),
           SizedBox(height: 12.h),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              spacing: 16.w,
-              children: List.generate(3, (index) {
-                return PopularCard();
-              }),
-            ),
+          BlocBuilder<BrandBloc, BrandState>(
+            builder: (context, state) {
+              // No need to trigger FetchBrands here as we're doing it in initState
+              if (state is BrandLoading || state is BrandInitial) {
+                return SizedBox(
+                  height: 150.h, // Set a fixed height for the loading indicator
+                  child: Center(child: CircularProgressIndicator()),
+                );
+              }
+
+              if (state is BrandError) {
+                return SizedBox(
+                  height: 150.h,
+                  child: Center(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text('Error: ${state.message}'),
+                        SizedBox(height: 8.h),
+                        ElevatedButton(
+                          onPressed: () {
+                            // Retry fetching brands
+                            context.read<BrandBloc>().add(RefreshBrands());
+                          },
+                          child: Text('Retry'),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+              if (state is BrandLoaded) {
+                final brands = state.brands;
+                if (brands.isEmpty) {
+                  return SizedBox(
+                    height: 150.h,
+                    child: Center(child: Text('No Popular brands available')),
+                  );
+                }
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  physics: BouncingScrollPhysics(),
+                  child: Row(
+                    children: List.generate(brands.length, (index) {
+                      return Padding(
+                        padding: EdgeInsets.only(right: 16.w),
+                        child: PopularCard(brand: brands[index]),
+                      );
+                    }),
+                  ),
+                );
+              }
+
+              return SizedBox(
+                height: 150.h,
+                child: Center(child: Text('No data available')),
+              );
+            },
           ),
         ],
       ),

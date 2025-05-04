@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:responsive_grid_list/responsive_grid_list.dart';
+import 'package:tracking_app/data/model/product_model.dart';
 import 'package:tracking_app/presentation/widget/filter_sheet.dart';
 import 'package:tracking_app/presentation/widget/product_card.dart';
 import 'package:tracking_app/utils/constants.dart';
@@ -71,7 +72,30 @@ class _ProductListScreenState extends State<ProductListScreen> {
           verticalGridMargin: 12.h,
           children: List.generate(
             6,
-            (index) => ProductCard(source: 'productlist'),
+            (index) => ProductCard(
+              source: 'productlist',
+              product: ProductModel(
+                id: 1,
+                productName: 'Sample Product',
+                images: [''],
+                isFavorite: false,
+                rating: 4.8,
+                soldCount: 3589,
+                price: 126.99,
+                description: '',
+                size: '',
+                hasSize: false,
+                hasColor: false,
+                canBeSoldBySet: false,
+                isPopular: false,
+                isNew: false,
+                brandId: 0,
+                brand: '',
+                sizes: [],
+                colors: [],
+                sets: [],
+              ),
+            ),
           ),
         ),
       ),

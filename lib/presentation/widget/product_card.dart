@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
+import 'package:tracking_app/data/model/product_model.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class ProductCard extends StatefulWidget {
@@ -15,6 +16,7 @@ class ProductCard extends StatefulWidget {
   final double price;
   final Function(bool)? onFavoriteChanged;
   final String source;
+  final ProductModel product;
 
   const ProductCard({
     super.key,
@@ -26,6 +28,7 @@ class ProductCard extends StatefulWidget {
     this.price = 126.99,
     this.onFavoriteChanged,
     required this.source,
+    required this.product,
   });
 
   @override
@@ -55,18 +58,25 @@ class _ProductCardState extends State<ProductCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
+        print("This is the source: ${widget.source}");
         switch (widget.source) {
           case 'home':
-            context.go('/product?source=home');
+            context.push(
+              '/product',
+              extra: {'source': widget.source, 'product': widget.product},
+            );
             break;
           case 'productlist':
-            context.go('/product?source=productlist');
+            context.push(
+              '/product',
+              extra: {'source': widget.source, 'product': widget.product},
+            );
             break;
         }
       },
       child: SizedBox(
         width: 220.w,
-        height: 300.h,
+        height: 340.h,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -118,14 +128,20 @@ class _ProductCardState extends State<ProductCard> {
             ),
             SizedBox(height: 8),
             Text(
-              widget.productName,
+              widget.product.productName.isEmpty
+                  ? widget.productName
+                  : widget.product.productName,
               style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
+              maxLines: 2,
             ),
             SizedBox(height: 4),
             Row(
               children: [
                 SmoothStarRating(
-                  rating: widget.rating,
+                  rating:
+                      widget.product.rating <= 0.0
+                          ? widget.rating
+                          : widget.product.rating,
                   size: 16.sp,
                   color: kWarningColor,
                   borderColor: kWarningColor,
@@ -135,7 +151,9 @@ class _ProductCardState extends State<ProductCard> {
                 ),
                 SizedBox(width: 4),
                 Text(
-                  widget.rating.toString(),
+                  widget.product.rating <= 0.0
+                      ? widget.rating.toString()
+                      : widget.product.rating.toString(),
                   style: TextStyle(
                     fontSize: 12.sp,
                     fontWeight: FontWeight.w500,
@@ -152,7 +170,7 @@ class _ProductCardState extends State<ProductCard> {
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 4.h),
                   child: Text(
-                    '${widget.soldCount} sold',
+                    '${widget.product.soldCount <= 0 ? widget.soldCount : widget.product.soldCount} sold',
                     style: TextStyle(
                       fontWeight: FontWeight.w500,
                       color: kGrayColor,
@@ -163,7 +181,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             SizedBox(height: 4),
             Text(
-              '\$${widget.price}',
+              '\$${widget.product.price <= 0 ? widget.price : widget.product.price}',
               style: TextStyle(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,

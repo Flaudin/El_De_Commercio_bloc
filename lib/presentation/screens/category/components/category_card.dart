@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -23,10 +22,7 @@ class CategoryCard extends StatelessWidget {
           icons,
           Text(
             title,
-            style: GoogleFonts.poppins(
-              fontSize: ml,
-              fontWeight: FontWeight.w500,
-            ),
+            style: TextStyle(fontSize: ml - .5, fontWeight: FontWeight.w500),
           ),
         ],
       ),
