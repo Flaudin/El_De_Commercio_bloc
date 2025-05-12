@@ -94,7 +94,11 @@ GoRouter getRouter(BuildContext context) {
       GoRoute(path: '/login', builder: (context, state) => LoginScreen()),
       GoRoute(
         path: '/productlist',
-        builder: (context, state) => ProductListScreen(),
+        builder: (context, state) {
+          final extras = state.extra as Map<String, dynamic>?;
+          final source = extras?['source'] ?? 'home';
+          return ProductListScreen(source: source);
+        },
       ),
       GoRoute(
         path: '/product',

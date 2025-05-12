@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -8,7 +10,8 @@ import 'package:tracking_app/presentation/widget/product_card.dart';
 import 'package:tracking_app/utils/constants.dart';
 
 class ProductListScreen extends StatefulWidget {
-  const ProductListScreen({super.key});
+  final String source;
+  const ProductListScreen({super.key, required this.source});
 
   @override
   State<ProductListScreen> createState() => _ProductListScreenState();
