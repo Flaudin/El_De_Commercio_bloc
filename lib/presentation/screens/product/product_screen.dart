@@ -1,4 +1,4 @@
-// ignore_for_file: unused_element
+// ignore_for_file: unused_element, use_build_context_synchronously
 
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -72,6 +72,41 @@ class _ProductScreenState extends State<ProductScreen> {
     }
   }
 
+  void addedtoCart() {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder:
+          (context) => Dialog(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(16.r),
+            ),
+            child: Padding(
+              padding: EdgeInsets.all(40.r),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  const Icon(Icons.check_circle, color: kSuccessColor),
+                  SizedBox(height: 8.h),
+                  Text(
+                    "Added to cart",
+                    style: TextStyle(
+                      fontSize: ml,
+                      color: kPrimaryColor,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+    );
+
+    Future.delayed(const Duration(seconds: 2), () {
+      context.pop();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -94,7 +129,10 @@ class _ProductScreenState extends State<ProductScreen> {
                 break;
               case 'productlist':
               default:
-                context.go('/productlist');
+                context.push(
+                  '/productlist',
+                  extra: {'brandname': widget.product.brandId},
+                );
                 break;
             }
           },
@@ -321,7 +359,7 @@ class _ProductScreenState extends State<ProductScreen> {
               height: 54.h,
               child: ElevatedButton(
                 onPressed: () {
-                  // Add to cart logic here
+                  addedtoCart();
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: kPrimaryColor,

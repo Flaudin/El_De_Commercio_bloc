@@ -16,6 +16,7 @@ import 'package:tracking_app/presentation/screens/account/components/profile_scr
 import 'package:tracking_app/presentation/screens/account/components/security_screen.dart';
 import 'package:tracking_app/presentation/screens/auth/pages/login_screen.dart';
 import 'package:tracking_app/presentation/screens/auth/pages/signup_screen.dart';
+import 'package:tracking_app/presentation/screens/brand/brand_screen.dart';
 import 'package:tracking_app/presentation/screens/cart/cart_screen.dart';
 import 'package:tracking_app/presentation/screens/category/category_screen.dart';
 import 'package:tracking_app/presentation/screens/home/home_screen.dart';
@@ -97,7 +98,8 @@ GoRouter getRouter(BuildContext context) {
         builder: (context, state) {
           final extras = state.extra as Map<String, dynamic>?;
           final source = extras?['source'] ?? 'home';
-          return ProductListScreen(source: source);
+          final brandId = extras?['brandname'] ?? 0;
+          return ProductListScreen(source: source, brandId: brandId);
         },
       ),
       GoRoute(
@@ -112,6 +114,7 @@ GoRouter getRouter(BuildContext context) {
           return ProductScreen(source: source, product: product);
         },
       ),
+      GoRoute(path: '/brand', builder: (context, state) => BrandScreen()),
       GoRoute(path: '/signup', builder: (context, state) => SignupScreen()),
       //Account Page
       GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),

@@ -7,7 +7,11 @@ abstract class ProductEvent extends Equatable {
 
 class FetchProductsByPopular extends ProductEvent {}
 
-class FetchProductsByBrand extends ProductEvent {}
+class FetchProductsByBrand extends ProductEvent {
+  final int brandId;
+
+  FetchProductsByBrand(this.brandId);
+}
 
 class RefreshProducts extends ProductEvent {}
 

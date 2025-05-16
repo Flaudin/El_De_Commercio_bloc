@@ -7,11 +7,15 @@ import 'package:tracking_app/data/repositories/product_repository.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   final ProductRepository repository;
   List<ProductModel> allproducts = [];
+  // Map to cache products by brand
+  Map<int, List<ProductModel>> productsByBrandCache = {};
 
   ProductBloc(this.repository) : super(ProductInitial()) {
     on<FetchProductsByPopular>(onFetchBrands);
     on<RefreshProducts>(onRefreshBrands);
     on<SearchProduct>(onSearchBrands);
+    // Add the new event handler
+    on<FetchProductsByBrand>(onFetchProductsByBrand);
   }
 
   Future<void> onFetchBrands(
@@ -38,6 +42,31 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     try {
       final products = await repository.getNewestProduct();
       allproducts = products;
+      emit(ProductLoaded(products));
+    } catch (e) {
+      emit(ProductError(e.toString()));
+    }
+  }
+
+  // New method to handle fetching products by brand
+  Future<void> onFetchProductsByBrand(
+    FetchProductsByBrand event,
+    Emitter<ProductState> emit,
+  ) async {
+    emit(ProductLoading());
+    try {
+      // Check if products for this brand are already cached
+      if (productsByBrandCache.containsKey(event.brandId)) {
+        emit(ProductLoaded(productsByBrandCache[event.brandId]!));
+        return;
+      }
+
+      // If not cached, fetch from repository
+      final products = await repository.getProductsByBrands(event.brandId);
+
+      // Cache the result
+      productsByBrandCache[event.brandId] = products;
+
       emit(ProductLoaded(products));
     } catch (e) {
       emit(ProductError(e.toString()));

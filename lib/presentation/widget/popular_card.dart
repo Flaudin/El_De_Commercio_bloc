@@ -13,7 +13,10 @@ class PopularCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/productlist');
+        context.push(
+          '/productlist',
+          extra: {'source': "home", 'brandname': brand.brandId},
+        );
       },
       child: Container(
         width: 260.w,
