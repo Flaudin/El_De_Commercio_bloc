@@ -25,3 +25,10 @@ class AuthFailure extends AuthState {
   @override
   List<Object?> get props => [message];
 }
+
+class ProfileLoading extends AuthState {}
+
+class ProfileUpdated extends AuthState {
+  final LoginCredentials credentials;
+  ProfileUpdated({required this.credentials});
+}

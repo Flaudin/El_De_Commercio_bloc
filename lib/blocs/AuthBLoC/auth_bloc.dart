@@ -3,15 +3,24 @@
 import 'package:hydrated_bloc/hydrated_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
+import 'package:tracking_app/data/model/auth_creadentials_model.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
+import 'package:tracking_app/utils/preference_manager.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
+  final PreferencesManager preferencesManager;
   final AuthRepository authRepository;
 
-  AuthBloc(this.authRepository) : super(AuthInitial()) {
+  AuthBloc(this.authRepository, this.preferencesManager)
+    : super(AuthInitial()) {
     on<LoginRequest>(onLoginRequest);
     on<LogoutRequest>(onLogoutRequest);
     on<CheckAuthStatus>(onCheckAuthStatus);
+
+    // Profile related events
+    on<LoadProfile>(onLoadProfile);
+    on<UpdateProfile>(onUpdateProfile);
+    on<RefreshProfile>(onRefreshProfile);
 
     // Check auth status when bloc is created
     add(CheckAuthStatus());
@@ -58,6 +67,72 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void onLogoutRequest(LogoutRequest event, Emitter<AuthState> emit) async {
     await authRepository.preferencesManager.clearAuthCredentials();
     emit(AuthInitial());
+  }
+
+  Future<void> onLoadProfile(LoadProfile event, Emitter<AuthState> emit) async {
+    try {
+      emit(ProfileLoading());
+      final credentials = await preferencesManager.getAuthCredentials();
+      if (credentials != null) {
+        emit(AuthAuthenticated(credentials));
+      } else {
+        emit(AuthFailure('No profile found'));
+      }
+    } catch (e) {
+      emit(AuthFailure('Failed to load profile'));
+    }
+  }
+
+  Future<void> onUpdateProfile(
+    UpdateProfile event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      final currentState = state;
+      if (currentState is AuthAuthenticated) {
+        emit(ProfileLoading());
+
+        final currentCredentials = currentState.credentials;
+        final updatedCredentials = LoginCredentials(
+          email: event.email ?? currentCredentials.email,
+          password: currentCredentials.password,
+          address: currentCredentials.address,
+          birthday: currentCredentials.birthday,
+          phonenumber: currentCredentials.phonenumber,
+        );
+        emit(ProfileUpdated(credentials: updatedCredentials));
+
+        // Transition back to authenticated state
+        await Future.delayed(Duration(milliseconds: 500));
+      } else {
+        emit(AuthFailure('No authenticated user found'));
+      }
+    } catch (e) {
+      emit(AuthFailure('Failed to update profile'));
+    }
+  }
+
+  Future<void> onRefreshProfile(
+    RefreshProfile event,
+    Emitter<AuthState> emit,
+  ) async {
+    try {
+      final currentState = state;
+      if (currentState is AuthAuthenticated) {
+        emit(ProfileLoading());
+
+        final credentials = await preferencesManager.getAuthCredentials();
+        if (credentials != null) {
+          emit(ProfileUpdated(credentials: credentials));
+        } else {
+          emit(AuthFailure('No profile found'));
+        }
+      } else {
+        emit(AuthFailure('No authenticated user found'));
+      }
+    } catch (e) {
+      emit(AuthFailure('Failed to refresh profile'));
+    }
   }
 
   @override
