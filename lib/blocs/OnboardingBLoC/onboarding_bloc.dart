@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_event.dart';
 import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_state.dart';
-import 'package:tracking_app/utils/preference_manager.dart';
+import 'package:tracking_app/components/utils/preference_manager.dart';
 
 class OnboardingBloc extends Bloc<OnboardingEvent, OnboardingState> {
   OnboardingBloc() : super(OnboardingState()) {

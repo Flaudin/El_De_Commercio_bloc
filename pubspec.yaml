@@ -53,6 +53,7 @@ dependencies:
   flutter_localization: ^0.3.2
   place_picker_google: ^0.0.16
   geocoding: ^2.1.1
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:

@@ -4,7 +4,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:place_picker_google/place_picker_google.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class AddAddressScreen extends StatefulWidget {
   const AddAddressScreen({super.key});

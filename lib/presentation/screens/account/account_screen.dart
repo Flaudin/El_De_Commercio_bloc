@@ -6,7 +6,7 @@ import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
 import 'package:tracking_app/data/model/auth_creadentials_model.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class AccountScreen extends StatefulWidget {
   const AccountScreen({super.key});

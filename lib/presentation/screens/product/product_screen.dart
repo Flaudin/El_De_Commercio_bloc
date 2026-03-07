@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
 import 'package:tracking_app/data/model/product_model.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class ProductScreen extends StatefulWidget {
   final String productName;

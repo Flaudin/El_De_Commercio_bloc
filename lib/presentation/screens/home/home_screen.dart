@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:tracking_app/presentation/screens/home/components/home_content.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});

@@ -12,7 +12,7 @@ import 'package:tracking_app/data/repositories/brand_repository.dart';
 import 'package:tracking_app/data/repositories/category_repository.dart';
 import 'package:tracking_app/data/repositories/product_repository.dart';
 import 'package:tracking_app/presentation/routes/router.dart';
-import 'package:tracking_app/utils/preference_manager.dart';
+import 'package:tracking_app/components/utils/preference_manager.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -37,7 +37,7 @@ class MyApp extends StatelessWidget {
           create: (context) => AuthBloc(authRepository, preferencesManager),
         ),
         BlocProvider<CategoryBloc>(
-          create: (context) => CategoryBloc(categoryRepository),
+          create: (context) => CategoryBloc(categoryRepository,brandRepository),
         ),
         BlocProvider(create: (context) => BrandBloc(brandRepository)),
         BlocProvider(create: (context) => ProductBloc(productRepository)),

@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:tracking_app/data/model/brand_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class BrandRepository {
   Future<List<BrandModel>> fetchPopularBrands() async {
@@ -42,14 +42,16 @@ class BrandRepository {
     }
   }
 
-  Future<List<BrandModel>> fetchBrandByCategory(String categoryId) async {
+  Future<List<BrandModel>> fetchBrandByCategory(String categoryId) async { 
     try {
       final response = await http.get(
         Uri.parse("${baseUrl}api/Brand/ByCategory?$categoryId="),
       );
-
+      print("Status code ${response.statusCode}");
       if (response.statusCode == 200) {
+        print('BrandList: ${response.body}');
         final List<dynamic> jsonList = jsonDecode(response.body);
+        //List<dynamic> brandList = jsonList['\$values'];
         return jsonList.map((json) => BrandModel.fromJson(json)).toList();
       } else {
         throw Exception("Failed to load brands: ${response.statusCode}");

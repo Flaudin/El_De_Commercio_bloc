@@ -7,7 +7,7 @@ import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_event.dart';
 import 'package:tracking_app/blocs/OnboardingBLoC/onboarding_state.dart';
 import 'package:tracking_app/data/model/onboarding_model.dart';
 import 'package:tracking_app/presentation/screens/onboarding/components/onboarding_page.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({super.key});

@@ -5,7 +5,7 @@ import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
 import 'package:tracking_app/data/model/auth_creadentials_model.dart';
 import 'package:tracking_app/data/repositories/authentucation_repository.dart';
-import 'package:tracking_app/utils/preference_manager.dart';
+import 'package:tracking_app/components/utils/preference_manager.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final PreferencesManager preferencesManager;

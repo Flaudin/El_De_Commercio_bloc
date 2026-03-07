@@ -24,7 +24,7 @@ import 'package:tracking_app/presentation/screens/onboarding/onboarding_screen.d
 import 'package:tracking_app/presentation/screens/product/product_screen.dart';
 import 'package:tracking_app/presentation/screens/product_list/product_list_screen.dart';
 import 'package:tracking_app/presentation/screens/shellscreen/shell_screen.dart';
-import 'package:tracking_app/utils/preference_manager.dart';
+import 'package:tracking_app/components/utils/preference_manager.dart';
 
 class AuthGuard extends ChangeNotifier {
   final BuildContext context;
@@ -114,7 +114,11 @@ GoRouter getRouter(BuildContext context) {
           return ProductScreen(source: source, product: product);
         },
       ),
-      GoRoute(path: '/brand', builder: (context, state) => BrandScreen()),
+      GoRoute(path: '/brand', builder: (context, state)  {
+        final extras = state.extra as Map<String, dynamic>?;
+        final categoryId = extras?['categoryId'] ?? '';
+        return BrandScreen(categoryId: categoryId);
+      }),
       GoRoute(path: '/signup', builder: (context, state) => SignupScreen()),
       //Account Page
       GoRoute(path: '/profile', builder: (context, state) => ProfileScreen()),

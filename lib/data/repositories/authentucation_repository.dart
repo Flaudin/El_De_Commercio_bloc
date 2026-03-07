@@ -3,8 +3,8 @@
 import 'dart:convert';
 
 import 'package:tracking_app/data/model/auth_creadentials_model.dart';
-import 'package:tracking_app/utils/constants.dart';
-import 'package:tracking_app/utils/preference_manager.dart';
+import 'package:tracking_app/components/utils/constants.dart';
+import 'package:tracking_app/components/utils/preference_manager.dart';
 import 'package:http/http.dart' as http;
 
 class AuthRepository {

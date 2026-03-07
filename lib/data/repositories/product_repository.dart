@@ -4,7 +4,7 @@ import 'dart:convert';
 
 import 'package:http/http.dart' as http;
 import 'package:tracking_app/data/model/product_model.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class ProductRepository {
   Future<List<ProductModel>> getNewestProduct() async {

@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class CategoryCard extends StatelessWidget {
-  const CategoryCard({super.key, required this.icons, required this.title});
-
+  const CategoryCard({
+    super.key,
+    required this.icons,
+    required this.title,
+    required this.categoryId,
+  });
+  final String categoryId;
   final Icon icons;
   final String title;
 
@@ -13,7 +18,7 @@ class CategoryCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go("/brand");
+        context.go("/brand", extra: {'categoryId': categoryId});
       },
       child: Container(
         decoration: BoxDecoration(

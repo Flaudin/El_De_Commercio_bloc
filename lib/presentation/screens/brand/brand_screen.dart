@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_bloc.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_event.dart';
+import 'package:tracking_app/blocs/BrandBLoC/brand_state.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class BrandScreen extends StatefulWidget {
-  const BrandScreen({super.key});
+  final String categoryId;
+  const BrandScreen({super.key, required this.categoryId});
 
   @override
   State<BrandScreen> createState() => _BrandScreenState();
@@ -12,6 +17,12 @@ class BrandScreen extends StatefulWidget {
 
 class _BrandScreenState extends State<BrandScreen> {
   TextEditingController searchText = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<BrandBloc>().add(FetchBrandsByCategory(widget.categoryId));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -60,6 +71,27 @@ class _BrandScreenState extends State<BrandScreen> {
             ),
           ),
         ],
+      ),
+      body: BlocBuilder<BrandBloc, BrandState>(
+        builder: (context, state) {
+          if (state is BrandInitial) {
+            return Center(child: Text('Please wait...'));
+          } else if (state is BrandLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is BrandLoaded) {
+            final brands = state.brands;
+            print("Brands loaded: ${brands.length}");
+            // return ListView.builder(
+            //   itemCount: brands.length,
+            //   itemBuilder: (context, index) {
+            //     final brand = brands[index];
+            //     print('Brands loaded: ${brand.brandName}');
+            //     return ListTile(title: Text(brand.brandName));
+            //   },
+            // );
+          }
+          return Center(child: Text('Something went wrong'));
+        },
       ),
     );
   }

@@ -3,9 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
+import 'package:tracking_app/components/utils/app_styles.dart';
 import 'package:tracking_app/data/model/product_model.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class ProductCard extends StatefulWidget {
   final String productName;
@@ -181,8 +183,14 @@ class _ProductCardState extends State<ProductCard> {
             ),
             SizedBox(height: 4),
             Text(
-              '\$${widget.product.price <= 0 ? widget.price : widget.product.price}',
-              style: TextStyle(
+              NumberFormat.simpleCurrency(locale: 'en_PH', name: 'PHP')
+                  .format(
+                    widget.product.price <= 0
+                        ? widget.price
+                        : widget.product.price,
+                  )
+                  .toString(),
+              style: AppStyles.bodyMedium.copyWith(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,
                 color: kPrimaryColor,

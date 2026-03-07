@@ -7,9 +7,9 @@ import 'package:tracking_app/blocs/BrandBLoC/brand_state.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_bloc.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_event.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_state.dart';
-import 'package:tracking_app/presentation/widget/popular_card.dart';
-import 'package:tracking_app/presentation/widget/product_card.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/widget/popular_card.dart';
+import 'package:tracking_app/components/widget/product_card.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class HomeContent extends StatefulWidget {
   const HomeContent({super.key});

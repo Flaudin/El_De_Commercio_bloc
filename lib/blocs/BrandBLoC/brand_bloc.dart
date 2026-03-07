@@ -12,6 +12,7 @@ class BrandBloc extends Bloc<BrandEvent, BrandState> {
     on<FetchBrandsByPopular>(onFetchBrands);
     on<RefreshBrands>(onRefreshBrands);
     on<SearchBrands>(onSearchBrands);
+    on<FetchBrandsByCategory>(onFetchBrandsByCategory);
   }
 
   Future<void> onFetchBrands(
@@ -64,5 +65,18 @@ class BrandBloc extends Bloc<BrandEvent, BrandState> {
             .toList();
 
     emit(BrandLoaded(filteredCategories));
+  }
+
+  onFetchBrandsByCategory(
+    FetchBrandsByCategory event,
+    Emitter<BrandState> emit,
+  ) async {
+    emit(BrandLoading());
+    try {
+      final brands = await repository.fetchBrandByCategory(event.categoryId);
+      emit(BrandLoaded(brands));
+    } catch (e) {
+      emit(BrandError(e.toString()));
+    }
   }
 }

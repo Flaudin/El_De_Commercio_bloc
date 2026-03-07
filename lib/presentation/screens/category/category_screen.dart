@@ -7,8 +7,8 @@ import 'package:tracking_app/blocs/CategoryBLoC/category_bloc.dart';
 import 'package:tracking_app/blocs/CategoryBLoC/category_event.dart';
 import 'package:tracking_app/blocs/CategoryBLoC/category_state.dart';
 import 'package:tracking_app/presentation/screens/category/components/category_card.dart';
-import 'package:tracking_app/utils/constants.dart';
-import 'package:tracking_app/utils/icon_helper.dart';
+import 'package:tracking_app/components/utils/constants.dart';
+import 'package:tracking_app/components/utils/icon_helper.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -61,7 +61,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
           ),
         ),
         actionsPadding: EdgeInsets.symmetric(horizontal: 12.w),
-        actions: [
+        actions: [ 
           Container(
             height: 58.h,
             width: 50.w,
@@ -101,6 +101,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     size: 32,
                   ),
                   title: categories[index].title,
+                  categoryId: categories[index].id.toString(),
                 ),
               ),
             );

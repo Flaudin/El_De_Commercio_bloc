@@ -8,9 +8,9 @@ import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_bloc.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_event.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_state.dart';
-import 'package:tracking_app/presentation/widget/filter_sheet.dart';
-import 'package:tracking_app/presentation/widget/product_card.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/widget/filter_sheet.dart';
+import 'package:tracking_app/components/widget/product_card.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class ProductListScreen extends StatefulWidget {
   final String source;

@@ -17,3 +17,12 @@ class SearchCategories extends CategoryEvent {
   @override
   List<Object?> get props => [query];
 }
+
+class OnFilteredBrandsByCategory extends CategoryEvent {
+  final String categoryId;
+
+  OnFilteredBrandsByCategory(this.categoryId);
+
+  @override
+  List<Object?> get props => [categoryId];
+}

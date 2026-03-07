@@ -8,7 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_bloc.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_event.dart';
 import 'package:tracking_app/blocs/AuthBLoC/auth_state.dart';
-import 'package:tracking_app/utils/constants.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
