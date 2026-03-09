@@ -18,7 +18,7 @@ class BrandBloc extends Bloc<BrandEvent, BrandState> {
   Future<void> onFetchBrands(
     FetchBrandsByPopular event,
     Emitter<BrandState> emit,
-  ) async {
+  ) async { 
     if (allbrands.isNotEmpty) {
       emit(BrandLoaded(allbrands));
       return;

@@ -184,12 +184,12 @@ class _ProductCardState extends State<ProductCard> {
             SizedBox(height: 4),
             Text(
               NumberFormat.simpleCurrency(locale: 'en_PH', name: 'PHP')
-                  .format(
+                  .format( 
                     widget.product.price <= 0
                         ? widget.price
                         : widget.product.price,
                   )
-                  .toString(),
+                  .toString().replaceFirst('₱', '₱ '),
               style: AppStyles.bodyMedium.copyWith(
                 fontSize: 16.sp,
                 fontWeight: FontWeight.bold,

@@ -5,6 +5,7 @@ class BrandModel {
   final bool isNew;
   final int? brandId;
   final int? categoryId;
+  final String? logoUrl;
 
   BrandModel({
     required this.id,
@@ -13,6 +14,7 @@ class BrandModel {
     this.isNew = false,
     this.brandId,
     this.categoryId,
+    this.logoUrl
   });
 
   factory BrandModel.fromJson(Map<String, dynamic> json) {
@@ -23,6 +25,7 @@ class BrandModel {
       isNew: json['isNew'] ?? false,
       brandId: json['brandId'],
       categoryId: json['categoryId'],
+      logoUrl: json['logoUrl'],
     );
   }
 }

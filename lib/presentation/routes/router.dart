@@ -19,6 +19,7 @@ import 'package:tracking_app/presentation/screens/auth/pages/signup_screen.dart'
 import 'package:tracking_app/presentation/screens/brand/brand_screen.dart';
 import 'package:tracking_app/presentation/screens/cart/cart_screen.dart';
 import 'package:tracking_app/presentation/screens/category/category_screen.dart';
+import 'package:tracking_app/presentation/screens/favorites/favorites_screen.dart';
 import 'package:tracking_app/presentation/screens/home/home_screen.dart';
 import 'package:tracking_app/presentation/screens/onboarding/onboarding_screen.dart';
 import 'package:tracking_app/presentation/screens/product/product_screen.dart';
@@ -99,7 +100,8 @@ GoRouter getRouter(BuildContext context) {
           final extras = state.extra as Map<String, dynamic>?;
           final source = extras?['source'] ?? 'home';
           final brandId = extras?['brandname'] ?? 0;
-          return ProductListScreen(source: source, brandId: brandId);
+          final categoryId = extras?['categoryId'] ?? '';
+          return ProductListScreen(source: source, brandId: brandId, categoryId: categoryId);
         },
       ),
       GoRoute(
@@ -136,6 +138,7 @@ GoRouter getRouter(BuildContext context) {
         path: '/privacy-policy',
         builder: (context, state) => PrivacyPolicyScreen(),
       ),
+      GoRoute(path: '/favorites', builder: (context, state) => FavoritesScreen()),
       ShellRoute(
         routes: [
           GoRoute(path: '/home', builder: (context, state) => HomeScreen()),

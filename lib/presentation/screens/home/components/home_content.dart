@@ -7,6 +7,8 @@ import 'package:tracking_app/blocs/BrandBLoC/brand_state.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_bloc.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_event.dart';
 import 'package:tracking_app/blocs/ProductBLoC/product_state.dart';
+import 'package:tracking_app/components/utils/app_strings.dart';
+import 'package:tracking_app/components/utils/app_styles.dart';
 import 'package:tracking_app/components/widget/popular_card.dart';
 import 'package:tracking_app/components/widget/product_card.dart';
 import 'package:tracking_app/components/utils/constants.dart';
@@ -47,50 +49,34 @@ class _HomeContentState extends State<HomeContent> {
               height: 260.h,
               padding: EdgeInsets.symmetric(horizontal: 12.w),
               child: Row(
-                //mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Lorem ipsum',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: 22.sp,
-                          color: kTextColorPrimary,
-                        ),
-                      ),
-                      Row(
-                        children: [
-                          Text(
-                            'dolor sit ',
-                            style: TextStyle(
-                              fontSize: 22.sp,
-                              color: kTextColorPrimary,
-                            ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          AppStrings.titleDescription,
+                          softWrap: true,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: AppStyles.bodySmallMedium.copyWith(
+                            fontSize: 18.sp,
+                            color: kTextColorPrimary,
                           ),
-                          Text(
-                            'amet',
-                            style: TextStyle(
-                              fontSize: 22.sp,
-                              color: kTextColorPrimary,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 14.h),
-                      Text(
-                        'See more >',
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
-                          fontSize: ml,
-                          color: kTextColorPrimary,
                         ),
-                      ),
-                    ],
+                        SizedBox(height: 14.h),
+                        Text(
+                          'See more >',
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            fontSize: ml,
+                            color: kTextColorPrimary,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -114,14 +100,13 @@ class _HomeContentState extends State<HomeContent> {
           Row(
             children: [
               Text(
-                'Newest Products',
-                style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
+                AppStrings.newestProducts,
+                style: AppStyles.titleLarge.copyWith( fontWeight: FontWeight.w600),
               ),
               Spacer(),
               Text(
-                'See more >',
-                style: TextStyle(
-                  fontSize: sm,
+                AppStrings.information,
+                style: AppStyles.bodyMediumMedium.copyWith(
                   fontWeight: FontWeight.w600,
                   color: kPrimaryColor,
                 ),
@@ -206,14 +191,13 @@ class _HomeContentState extends State<HomeContent> {
           Row(
             children: [
               Text(
-                'Popular',
-                style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
+                AppStrings.popularBrands,
+                style: AppStyles.titleLarge.copyWith( fontWeight: FontWeight.w600),
               ),
               Spacer(),
               Text(
-                'See more >',
-                style: TextStyle(
-                  fontSize: sm,
+                AppStrings.information,
+                style: AppStyles.bodyMediumMedium.copyWith(
                   fontWeight: FontWeight.w600,
                   color: kPrimaryColor,
                 ),

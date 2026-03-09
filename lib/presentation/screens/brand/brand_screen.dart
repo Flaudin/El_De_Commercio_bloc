@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:responsive_grid_list/responsive_grid_list.dart';
 import 'package:tracking_app/blocs/BrandBLoC/brand_bloc.dart';
 import 'package:tracking_app/blocs/BrandBLoC/brand_event.dart';
 import 'package:tracking_app/blocs/BrandBLoC/brand_state.dart';
+import 'package:tracking_app/components/utils/app_strings.dart';
 import 'package:tracking_app/components/utils/constants.dart';
+import 'package:tracking_app/components/widget/brand_card.dart';
 
 class BrandScreen extends StatefulWidget {
   final String categoryId;
@@ -81,7 +84,21 @@ class _BrandScreenState extends State<BrandScreen> {
           } else if (state is BrandLoaded) {
             final brands = state.brands;
             print("Brands loaded: ${brands.length}");
-            // return ListView.builder(
+            return brands.isEmpty? Center(child: Text('No brands found')) : 
+            ResponsiveGridList(
+              minItemWidth: 124.w,
+              horizontalGridMargin: 24.w,
+              verticalGridMargin: 12.h,
+              children: List.generate(
+                brands.length,
+                (index) => BrandCard(
+                  brandId: brands[index].brandId.toString(),
+                  brandName: brands[index].brandName,
+                  logoUrl: AppStrings.base64Image + brands[index].logoUrl.toString(),
+                ),
+              ),
+            );
+            // ListView.builder(
             //   itemCount: brands.length,
             //   itemBuilder: (context, index) {
             //     final brand = brands[index];
@@ -89,6 +106,8 @@ class _BrandScreenState extends State<BrandScreen> {
             //     return ListTile(title: Text(brand.brandName));
             //   },
             // );
+          }else if(state is BrandError){
+            return Center(child: Text('Error loading brands: ${state.message}'));
           }
           return Center(child: Text('Something went wrong'));
         },

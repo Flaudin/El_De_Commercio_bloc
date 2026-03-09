@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:tracking_app/components/utils/app_strings.dart';
+import 'package:tracking_app/components/utils/app_styles.dart';
+import 'package:tracking_app/components/utils/image_helper.dart';
 import 'package:tracking_app/data/model/brand_model.dart';
 import 'package:tracking_app/components/utils/constants.dart';
 
@@ -24,7 +27,7 @@ class PopularCard extends StatelessWidget {
         decoration: BoxDecoration(
           //color: Color(0xFFEFEFEF),
           border: Border.all(color: kBorderPrimaryColor),
-          borderRadius: BorderRadius.circular(18.r),
+          borderRadius: BorderRadius.circular(12.r),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -37,16 +40,19 @@ class PopularCard extends StatelessWidget {
                 children: [
                   Text(
                     brand.brandName,
-                    style: TextStyle(fontSize: ml, fontWeight: FontWeight.w600),
+                    style: AppStyles.titleLarge.copyWith(
+                      fontWeight: FontWeight.w600,
+                    ),
                   ),
                   Text(
                     'Description',
-                    style: TextStyle(fontSize: ml, color: kGreyColor),
+                    style: AppStyles.bodyMediumMedium.copyWith(
+                      color: kGreyColor,
+                    ),
                   ),
                   Text(
-                    "See more",
-                    style: TextStyle(
-                      fontSize: ml,
+                    AppStrings.information,
+                    style: AppStyles.bodyMediumMedium.copyWith(
                       color: kPrimaryColor,
                       fontWeight: FontWeight.w600,
                     ),
@@ -54,6 +60,8 @@ class PopularCard extends StatelessWidget {
                 ],
               ),
             ),
+            Spacer(),
+            img(AppStrings.base64Image + brand.logoUrl!),
           ],
         ),
       ),

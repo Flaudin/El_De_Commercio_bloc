@@ -15,10 +15,12 @@ import 'package:tracking_app/components/utils/constants.dart';
 class ProductListScreen extends StatefulWidget {
   final String source;
   final int brandId;
-  const ProductListScreen({
+  String? categoryId;
+  ProductListScreen({
     super.key,
     required this.source,
     required this.brandId,
+    required this.categoryId,
   });
 
   @override
@@ -45,6 +47,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
           switch (widget.source) {
             case 'home':
               context.go('/home');
+              break;
+            case 'brands':
+              context.go('/brand',);
               break;
           }
         }
@@ -84,7 +89,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                     context: context,
                     isScrollControlled: true,
                     backgroundColor: Colors.transparent,
-                    builder: (context) => const FilterBottomSheet(),
+                    builder: (context) =>  FilterBottomSheet(selectedCategory: widget.brandId.toString(),),
                   );
                 },
                 icon: Icon(Icons.filter_list, color: kLightBlue3Color),

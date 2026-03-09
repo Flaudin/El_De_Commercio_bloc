@@ -44,15 +44,19 @@ class BrandRepository {
 
   Future<List<BrandModel>> fetchBrandByCategory(String categoryId) async { 
     try {
+      print("Fetching brands for category ID: $categoryId");
       final response = await http.get(
-        Uri.parse("${baseUrl}api/Brand/ByCategory?$categoryId="),
+        Uri.parse("${baseUrl}api/Brand/ByCategory?categoryId=$categoryId"),
       );
-      print("Status code ${response.statusCode}");
       if (response.statusCode == 200) {
-        print('BrandList: ${response.body}');
-        final List<dynamic> jsonList = jsonDecode(response.body);
-        //List<dynamic> brandList = jsonList['\$values'];
-        return jsonList.map((json) => BrandModel.fromJson(json)).toList();
+        final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+        if(jsonResponse.containsKey('\$values')) {
+          List<dynamic> brandList = jsonResponse['\$values'];
+          print("Brand List: $brandList");
+          return brandList.map((brand) => BrandModel.fromJson(brand)).toList();
+        } else {
+          throw Exception('Unexpected JSON structure: ${response.body}');
+        }
       } else {
         throw Exception("Failed to load brands: ${response.statusCode}");
       }

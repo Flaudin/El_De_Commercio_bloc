@@ -1,8 +1,13 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:tracking_app/components/utils/app_styles.dart';
+import 'package:tracking_app/components/utils/constants.dart';
 
 class FilterBottomSheet extends StatefulWidget {
-  const FilterBottomSheet({super.key});
+  String? selectedCategory;
+  FilterBottomSheet({super.key,required this.selectedCategory});
 
   @override
   State<FilterBottomSheet> createState() => _FilterBottomSheetState();
@@ -36,7 +41,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             children: [
               Text(
                 'Filter',
-                style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+                style: AppStyles.bodyLarge.copyWith(fontSize: 16.sp, fontWeight: FontWeight.bold,color: kGreyColor),
               ),
             ],
           ),
@@ -46,7 +51,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           // Categories Section
           Text(
             'Categories',
-            style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+            style: AppStyles.bodyMedium.copyWith(fontSize: 16.sp,color: kGreyColor),
           ),
           SizedBox(height: 12.h),
           SingleChildScrollView(
@@ -77,7 +82,9 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
           ),
           SizedBox(height: 16.h),
 
+          // Base on the selected category, you can show subcategories or other relevant filters here
           // Gender Section
+          if(widget.selectedCategory != '1')...[
           Text(
             'Gender',
             style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
@@ -97,6 +104,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
             ],
           ),
           SizedBox(height: 16.h),
+          ]else...[SizedBox.shrink()],
 
           // Price Range Section
           Text(

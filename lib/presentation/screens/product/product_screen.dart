@@ -3,7 +3,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:smooth_star_rating_nsafe/smooth_star_rating.dart';
+import 'package:tracking_app/components/utils/app_strings.dart';
+import 'package:tracking_app/components/utils/app_styles.dart';
 import 'package:tracking_app/data/model/product_model.dart';
 import 'package:tracking_app/components/utils/constants.dart';
 
@@ -145,7 +148,12 @@ class _ProductScreenState extends State<ProductScreen> {
           Container(
             width: double.infinity,
             height: 300.h,
-            decoration: BoxDecoration(color: kLightBlue3Color),
+            decoration: widget.imageUrl.isEmpty? BoxDecoration(color: kLightBlue3Color) : BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(widget.imageUrl),
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           SizedBox(height: 14.h),
           Expanded(
@@ -163,13 +171,12 @@ class _ProductScreenState extends State<ProductScreen> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             SizedBox(
-                              width: 200.w,
+                              width: 300.w,
                               child: Text(
                                 widget.product.productName.isEmpty
                                     ? widget.productName
                                     : widget.product.productName,
-                                style: TextStyle(
-                                  fontSize: 20.sp,
+                                style: AppStyles.titleLarge.copyWith(
                                   fontWeight: FontWeight.w600,
                                   color: kBlackColor,
                                 ),
@@ -244,9 +251,8 @@ class _ProductScreenState extends State<ProductScreen> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'Description',
-                          style: TextStyle(
-                            fontSize: lg,
+                          AppStrings.description,
+                          style: AppStyles.bodyLargeMedium.copyWith(
                             fontWeight: FontWeight.w900,
                             color: kGrayColor,
                           ),
@@ -258,7 +264,7 @@ class _ProductScreenState extends State<ProductScreen> {
                                     ? widget.description
                                     : widget.product.description,
                           ),
-                          style: TextStyle(fontSize: ml, color: kGreyColor),
+                          style: AppStyles.bodyLargeMedium.copyWith(fontSize: ml, color: kGreyColor),
                         ),
                       ],
                     ),
@@ -287,7 +293,11 @@ class _ProductScreenState extends State<ProductScreen> {
                       style: TextStyle(fontSize: lg, color: kGreyColor),
                     ),
                     Text(
-                      '\$${widget.product.price <= 0 ? widget.price.toStringAsFixed(2) : widget.product.price.toStringAsFixed(2)}',
+                      NumberFormat.currency(locale: 'en_PH', symbol: '₱ ').format(
+                        widget.product.price <= 0
+                            ? widget.price
+                            : widget.product.price,),
+                      // '\$${widget.product.price <= 0 ? widget.price.toStringAsFixed(2) : widget.product.price.toStringAsFixed(2)}',
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.bold,
